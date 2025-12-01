@@ -1,5 +1,5 @@
-import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Tabs } from "expo-router";
 import { useAuth } from "../../context/AuthContext";
 
 export default function TabsLayout() {
@@ -9,7 +9,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#6366f1",
+        tabBarActiveTintColor: "#c0f000",
         tabBarInactiveTintColor: "#94a3b8",
         tabBarStyle: {
           backgroundColor: "#0f172a",
@@ -20,6 +20,7 @@ export default function TabsLayout() {
         },
       }}
     >
+      {/* Home Screen */}
       <Tabs.Screen
         name="index"
         options={{
@@ -29,6 +30,7 @@ export default function TabsLayout() {
           ),
         }}
       />
+      {/* Calendar Screen */}
       <Tabs.Screen
         name="calendar"
         options={{
@@ -38,6 +40,27 @@ export default function TabsLayout() {
           ),
         }}
       />
+      {/* Materials Screen */}
+      <Tabs.Screen
+        name="materials"
+        options={{
+          title: "Materials",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="book-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      {/* Screen with statistics */}
+      <Tabs.Screen
+        name="statistics"
+        options={{
+          title: "Statistics",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bar-chart-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      {/* Profile Screen */}
       <Tabs.Screen
         name="profile"
         options={{
@@ -48,6 +71,7 @@ export default function TabsLayout() {
           tabBarBadge: user ? undefined : "!",
         }}
       />
+      {/* Hidden Edit Profile Screen */}
       <Tabs.Screen
         name="edit-profile"
         options={{
