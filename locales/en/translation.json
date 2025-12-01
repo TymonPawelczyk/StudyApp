@@ -37,6 +37,36 @@
     }
   },
   "home": {
+    "welcome": "Welcome back,",
+    "plan": {
+      "basic": "Basic Plan",
+      "premium": "Premium Plan"
+    },
+    "progress": {
+      "badge": "NEW",
+      "title": "New lessons available!",
+      "subtitle": "Track your progress"
+    },
+    "materials": {
+      "title": "Course materials",
+      "activeUsers": "{{count}} active users",
+      "startButton": "Start now!",
+      "upgradeButton": "UPGRADE PLAN"
+    },
+    "sections": {
+      "vocabulary": {
+        "title": "Vocabulary",
+        "subtitle": "Learn new words"
+      },
+      "listening": {
+        "title": "Listening",
+        "subtitle": "Practice audio"
+      },
+      "grammar": {
+        "title": "Grammar",
+        "subtitle": "Master rules"
+      }
+    },
     "title": "Welcome to StudyApp",
     "getStarted": {
       "title": "🎯 Get Started",

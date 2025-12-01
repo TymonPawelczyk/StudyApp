@@ -37,6 +37,36 @@
     }
   },
   "home": {
+    "welcome": "Witaj ponownie,",
+    "plan": {
+      "basic": "Plan Podstawowy",
+      "premium": "Plan Premium"
+    },
+    "progress": {
+      "badge": "NOWOŚĆ",
+      "title": "Nowe lekcje dostępne!",
+      "subtitle": "Śledź swój postęp"
+    },
+    "materials": {
+      "title": "Materiały kursowe",
+      "activeUsers": "{{count}} aktywnych użytkowników",
+      "startButton": "Zacznij teraz!",
+      "upgradeButton": "ULEPSZ PLAN"
+    },
+    "sections": {
+      "vocabulary": {
+        "title": "Słownictwo",
+        "subtitle": "Ucz się nowych słów"
+      },
+      "listening": {
+        "title": "Słuchanie",
+        "subtitle": "Ćwicz ze audio"
+      },
+      "grammar": {
+        "title": "Gramatyka",
+        "subtitle": "Opanuj zasady"
+      }
+    },
     "title": "Witaj w StudyApp",
     "getStarted": {
       "title": "🎯 Zacznij",
