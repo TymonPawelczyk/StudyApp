@@ -48,6 +48,12 @@ export default function TabsLayout() {
           tabBarBadge: user ? undefined : "!",
         }}
       />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{
+          href: null, // Hide from tab bar
+        }}
+      />
     </Tabs>
   );
 }

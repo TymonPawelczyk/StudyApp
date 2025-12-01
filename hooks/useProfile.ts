@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
+
+const PROFILE_STORAGE_KEY = "@StudyApp:localProfile";
 
 export type Profile = {
   id: string;
@@ -9,6 +12,7 @@ export type Profile = {
   username?: string | null;
   avatar_url?: string | null;
   bio?: string | null;
+  website?: string | null;
   created_at?: string | null;
   updated_at?: string | null;
 } & Record<string, unknown>;
@@ -51,6 +55,7 @@ export function useProfile(): ProfileState {
     setError(null);
     setNotFound(false);
 
+    // Try to fetch from server first
     const { data, error: fetchError, status } = await supabase
       .from("profiles")
       .select("*")
@@ -59,15 +64,50 @@ export function useProfile(): ProfileState {
 
     if (fetchError) {
       if (isNotFoundError(fetchError, status)) {
-        setProfile(null);
-        setNotFound(true);
+        // Profile not found on server, try to load from local storage
+        try {
+          const localData = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+          if (localData) {
+            const localProfile = JSON.parse(localData);
+            // Merge local data with user id
+            setProfile({
+              id: user.id,
+              ...localProfile,
+            } as Profile);
+            setNotFound(false);
+          } else {
+            setProfile(null);
+            setNotFound(true);
+          }
+        } catch (localError) {
+          console.error("Error loading local profile:", localError);
+          setProfile(null);
+          setNotFound(true);
+        }
       } else {
         console.error("Error fetching profile", fetchError);
         setError("Could not load your profile. Please try again.");
         setProfile(null);
       }
     } else {
-      setProfile(data as Profile);
+      // Server data found, merge with local data (local takes precedence for edited fields)
+      try {
+        const localData = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+        if (localData) {
+          const localProfile = JSON.parse(localData);
+          // Merge: server data as base, local data overrides
+          setProfile({
+            ...data,
+            ...localProfile,
+            id: user.id, // Ensure id is always from user
+          } as Profile);
+        } else {
+          setProfile(data as Profile);
+        }
+      } catch (localError) {
+        console.error("Error loading local profile:", localError);
+        setProfile(data as Profile);
+      }
     }
 
     setIsLoading(false);

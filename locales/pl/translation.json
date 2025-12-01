@@ -56,6 +56,7 @@
     "fullName": "Pełne imię",
     "username": "Nazwa użytkownika",
     "bio": "Bio",
+    "website": "Strona internetowa",
     "profileId": "ID profilu",
     "updatedAt": "Zaktualizowano",
     "refresh": "Odśwież",
@@ -67,6 +68,26 @@
       "selectLanguage": "Wybierz język",
       "english": "English",
       "polish": "Polski"
+    },
+    "edit": {
+      "title": "Edytuj Profil",
+      "changePhoto": "Zmień Zdjęcie",
+      "removePhoto": "Usuń Zdjęcie",
+      "selectPhoto": "Wybierz Zdjęcie",
+      "fullName": "Pełne Imię",
+      "fullNamePlaceholder": "Wprowadź swoje pełne imię",
+      "username": "Nazwa Użytkownika",
+      "usernamePlaceholder": "Wprowadź swoją nazwę użytkownika",
+      "bio": "Bio",
+      "bioPlaceholder": "Opowiedz nam o sobie",
+      "website": "Strona Internetowa",
+      "websitePlaceholder": "https://przyklad.pl",
+      "save": "Zapisz Zmiany",
+      "cancel": "Anuluj",
+      "saving": "Zapisywanie...",
+      "saved": "Profil zapisany pomyślnie",
+      "error": "Błąd zapisywania profilu",
+      "photoError": "Błąd wyboru zdjęcia"
     }
   },
   "common": {

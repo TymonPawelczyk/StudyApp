@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -5,10 +6,16 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
+import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../context/AuthContext";
-import { useProfile } from "../../hooks/useProfile";
+import { useProfile, Profile } from "../../hooks/useProfile";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+const PROFILE_STORAGE_KEY = "@StudyApp:localProfile";
 
 type InfoRowProps = {
   label: string;
@@ -16,7 +23,7 @@ type InfoRowProps = {
 };
 
 const InfoRow = ({ label, value }: InfoRowProps) => {
-  if (value === undefined || value === null) return null;
+  if (value === undefined || value === null || value === "") return null;
 
   return (
     <View style={styles.row}>
@@ -38,7 +45,57 @@ const formatDateTime = (value?: string | null) => {
 export default function ProfileScreen() {
   const { t, i18n } = useTranslation();
   const { user, signOut } = useAuth();
-  const { profile, isLoading, error, notFound, refresh } = useProfile();
+  const { profile: serverProfile, isLoading, error, notFound, refresh } = useProfile();
+  const [localProfile, setLocalProfile] = useState<Profile | null>(null);
+  const [displayProfile, setDisplayProfile] = useState<Profile | null>(null);
+
+  // Load local profile data
+  useEffect(() => {
+    const loadLocalProfile = async () => {
+      try {
+        const localData = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+        if (localData) {
+          const parsed = JSON.parse(localData);
+          if (user) {
+            setLocalProfile({
+              id: user.id,
+              ...parsed,
+            } as Profile);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading local profile:", error);
+      }
+    };
+
+    if (user) {
+      loadLocalProfile();
+    }
+  }, [user]);
+
+  // Merge server and local profile data (local takes precedence)
+  useEffect(() => {
+    if (localProfile) {
+      // If we have local data, merge with server data (local overrides)
+      if (serverProfile) {
+        setDisplayProfile({
+          ...serverProfile,
+          ...localProfile,
+          id: user?.id || localProfile.id,
+        });
+      } else {
+        // Only local data available
+        setDisplayProfile(localProfile);
+      }
+    } else if (serverProfile) {
+      // Only server data available
+      setDisplayProfile(serverProfile);
+    } else {
+      setDisplayProfile(null);
+    }
+  }, [serverProfile, localProfile, user]);
+
+  const profile = displayProfile;
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -59,17 +116,31 @@ export default function ProfileScreen() {
     user?.email?.charAt(0).toUpperCase() ||
     "?";
 
+  const avatarUrl = profile?.avatar_url as string | undefined;
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{initials}</Text>
+        <View style={styles.avatarContainer}>
+          {avatarUrl ? (
+            <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+          ) : (
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>{initials}</Text>
+            </View>
+          )}
         </View>
         <View style={styles.headerText}>
           <Text style={styles.title}>{displayName}</Text>
           {user?.email ? <Text style={styles.subtitle}>{user.email}</Text> : null}
           <Text style={styles.status}>{t("profile.signedIn")}</Text>
         </View>
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={() => router.push("/edit-profile")}
+        >
+          <Ionicons name="create-outline" size={24} color="#6366f1" />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.card}>
@@ -88,15 +159,24 @@ export default function ProfileScreen() {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>{t("profile.profile")}</Text>
-          <TouchableOpacity
-            onPress={refresh}
-            style={styles.refreshButton}
-            disabled={isLoading}
-          >
-            <Text style={styles.refreshText}>
-              {isLoading ? t("common.loading") : t("profile.refresh")}
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.cardActions}>
+            <TouchableOpacity
+              onPress={() => router.push("/edit-profile")}
+              style={styles.editCardButton}
+            >
+              <Ionicons name="create-outline" size={16} color="#6366f1" />
+              <Text style={styles.editCardText}>{t("common.edit")}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={refresh}
+              style={styles.refreshButton}
+              disabled={isLoading}
+            >
+              <Text style={styles.refreshText}>
+                {isLoading ? t("common.loading") : t("profile.refresh")}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {isLoading ? (
@@ -118,6 +198,10 @@ export default function ProfileScreen() {
                   value={profile.username as string}
                 />
                 <InfoRow label={t("profile.bio")} value={profile.bio as string} />
+                <InfoRow
+                  label={t("profile.website")}
+                  value={profile.website as string}
+                />
                 <InfoRow label={t("profile.profileId")} value={profile.id} />
                 <InfoRow
                   label={t("profile.updatedAt")}
@@ -195,6 +279,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 16,
   },
+  avatarContainer: {
+    position: "relative",
+  },
   avatar: {
     width: 64,
     height: 64,
@@ -204,6 +291,13 @@ const styles = StyleSheet.create({
     borderColor: "#334155",
     alignItems: "center",
     justifyContent: "center",
+  },
+  editButton: {
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: "#1e293b",
+    borderWidth: 1,
+    borderColor: "#334155",
   },
   avatarText: {
     fontSize: 24,
@@ -244,6 +338,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
+  },
+  cardActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  editCardButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    backgroundColor: "#0f172a",
+    borderWidth: 1,
+    borderColor: "#334155",
+  },
+  editCardText: {
+    color: "#6366f1",
+    fontSize: 12,
+    fontWeight: "700",
   },
   cardTitle: {
     fontSize: 18,
