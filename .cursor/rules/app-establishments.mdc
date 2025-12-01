@@ -1,0 +1,219 @@
+---
+alwaysApply: true
+---
+Projekt aplikacji mobilnej dla szkoły językowej
+
+Skład grupy: Patryk Ostarek, Cezary Kalinowski, Łukasz Podczaski, Patryk Jureczko, Michał Nowak, Wiktor Rzeźnick, Stanisław Frankowski, Kamil Ptak, Kacper Szlajter, Marcin Szewczyk , Tymon Pawełczyk, Valeriia Rohatynska, Dominik Rolla, Patryk Tlatlik, Kamil Bundyra, Tomasz Szewczyk
+
+
+
+
+1. Wstępne założenia
+Platformy: Android i iOS (stworzona w technologii cross-platformowej -  React Native (Expo))
+
+
+Backend: Node.js 
+
+
+Baza danych: PostgreSQL (Supabase)
+
+
+Hosting: AWS / Firebase / Vercel? 
+
+
+Bezpieczeństwo: logowanie, szyfrowanie danych, role użytkowników, RODO(????) 
+
+
+
+2. Moduły aplikacji
+A. Moduł autoryzacji i kont użytkowników
+Rejestracja / logowanie (uczeń, rodzic, nauczyciel, administrator)
+
+
+Logowanie przez e-mail + hasło, Google
+
+
+Zarządzanie profilem (edycja danych, zdjęcie profilowe)
+
+
+Przypomnienie hasła
+
+
+Role użytkowników z różnymi poziomami dostępu
+
+
+
+B. Moduł ucznia / rodzica
+Kalendarz zajęć (zintegrowany z Google / Apple Calendar)
+
+
+Powiadomienia push o zbliżających się lekcjach, zmianach, nowościach
+
+
+Obecności i nieobecności
+
+
+Oceny i postępy ucznia (raporty miesięczne, testy, zadania domowe)
+
+
+Dostęp do materiałów (PDF, audio, wideo, linki)
+
+
+Zadania domowe – przegląd, przesyłanie rozwiązań, komentarze nauczycieli
+
+
+Galeria – zdjęcia z wydarzeń, lekcji, projektów
+
+
+Umowy, dokumenty, płatności (do pobrania)
+
+
+
+C. Moduł nauczyciela
+Zarządzanie lekcjami (dodawanie, edycja tematów, materiały)
+
+
+Rejestracja obecności
+
+
+Wystawianie ocen i komentarzy
+
+
+Zadawanie prac domowych
+
+
+Komunikacja z uczniami i rodzicami
+
+
+Statystyki postępów klasy/uczniów
+
+
+
+D. Moduł administratora
+Panel zarządzania uczniami, rodzicami, nauczycielami (dodawanie kont)
+
+
+Zarządzanie grupami/klasami (uprawnienia)
+
+
+Tworzenie grafiku zajęć
+
+
+Zarządzanie płatnościami (Stripe)
+
+
+Raporty finansowe i edukacyjne
+
+
+Zarządzanie treścią sklepu
+
+
+Zarządzanie powiadomieniami
+
+
+
+E. Moduł sklepu internetowego
+Produkty
+
+
+Kategorie produktów
+
+
+Koszyk, dodawanie/usuwanie produktów
+
+
+Płatność online (Stripe)
+
+
+Dostawa: opcje, dane adresowe
+
+
+Historia zamówień
+
+
+Powiadomienia o statusie zamówienia
+
+
+
+F. Moduł płatności
+Podgląd bieżących płatności (czesne, dodatkowe zajęcia, zamówienia)
+
+
+Płatności online (Stripe)
+
+
+Historia płatności
+
+
+
+G. Moduł ogłoszeń i aktualności
+Tablica ogłoszeń
+
+
+Nowości szkoły
+
+
+Kalendarz wydarzeń (wyjazdy, konkursy, warsztaty)
+
+
+
+H. Moduł statystyk i raportów
+Postępy ucznia (dla ucznia/rodzica)
+
+
+Wyniki klas
+
+
+Frekwencja
+
+
+Wyniki finansowe (dla administratora)
+
+
+
+I. System powiadomień
+Powiadomienia push
+
+
+E-maile
+
+3. Architektura aplikacji
+Frontend (aplikacja mobilna)
+React Native (Expo) 
+
+
+UI/UX zgodny z Material Design i Apple Human Interface
+
+
+Interfejs responsywny, przyjazny zarówno dzieciom, jak i dorosłym
+
+
+Backend
+REST API
+
+
+Framework: Node.js
+
+
+Moduły: autoryzacja, płatności, notyfikacje, dokupywanie lekcji
+
+
+
+Baza danych
+PostgreSQL
+
+
+CMS (dla admina)
+Webowa aplikacja panelowa (React / Node.js)
+
+
+
+Dodatkowe funkcje opcjonalne (propozycje)
+System lojalnościowy (punkty za aktywność)
+
+
+Tłumaczenia interfejsu (PL / EN / inne)
+
+
+
+

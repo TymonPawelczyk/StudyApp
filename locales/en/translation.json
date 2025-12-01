@@ -1,0 +1,105 @@
+{
+  "app": {
+    "name": "StudyApp"
+  },
+  "auth": {
+    "login": {
+      "title": "StudyApp",
+      "subtitle": "Welcome back",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "your@email.com",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "noAccount": "Don't have an account? ",
+      "fillAllFields": "Please fill in all fields"
+    },
+    "register": {
+      "title": "StudyApp",
+      "subtitle": "Create your account",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "emailPlaceholder": "your@email.com",
+      "passwordPlaceholder": "••••••••",
+      "createAccount": "Create Account",
+      "hasAccount": "Already have an account? ",
+      "signIn": "Sign In",
+      "fillAllFields": "Please fill in all fields",
+      "passwordsNoMatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "success": {
+        "title": "Check your email",
+        "message": "We've sent a confirmation link to {{email}}. Please check your inbox and verify your account.",
+        "backToLogin": "Back to Login"
+      }
+    }
+  },
+  "home": {
+    "title": "Welcome to StudyApp",
+    "getStarted": {
+      "title": "🎯 Get Started",
+      "description": "You're now signed in! Start building your study app features here.",
+      "viewProfile": "View your profile"
+    },
+    "signOut": "Sign Out"
+  },
+  "profile": {
+    "title": "Profile",
+    "account": "Account",
+    "profile": "Profile",
+    "signedIn": "Signed in",
+    "userId": "User ID",
+    "createdAt": "Created at",
+    "lastSignIn": "Last sign in",
+    "fullName": "Full name",
+    "username": "Username",
+    "bio": "Bio",
+    "website": "Website",
+    "profileId": "Profile ID",
+    "updatedAt": "Updated at",
+    "refresh": "Refresh",
+    "noProfile": "No profile row found for this account. Create one in Supabase to see more details here.",
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "currentLanguage": "Current language",
+      "selectLanguage": "Select language",
+      "english": "English",
+      "polish": "Polski"
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "changePhoto": "Change Photo",
+      "removePhoto": "Remove Photo",
+      "selectPhoto": "Select Photo",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself",
+      "website": "Website",
+      "websitePlaceholder": "https://example.com",
+      "save": "Save Changes",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saved": "Profile saved successfully",
+      "error": "Error saving profile",
+      "photoError": "Error selecting photo"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  }
+}
+

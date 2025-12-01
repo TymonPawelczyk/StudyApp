@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+You ALWAYS MUST add CHANGELOG.md update whenever you finish feature. User will inform you with "push" command or "feature is ready".
+
