@@ -10,9 +10,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Link, router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../context/AuthContext";
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +23,7 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError("Please fill in all fields");
+      setError(t("auth.login.fillAllFields"));
       return;
     }
 
@@ -45,16 +47,16 @@ export default function LoginScreen() {
     >
       <View style={styles.inner}>
         <View style={styles.header}>
-          <Text style={styles.title}>StudyApp</Text>
-          <Text style={styles.subtitle}>Welcome back</Text>
+          <Text style={styles.title}>{t("auth.login.title")}</Text>
+          <Text style={styles.subtitle}>{t("auth.login.subtitle")}</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>{t("auth.login.email")}</Text>
             <TextInput
               style={styles.input}
-              placeholder="your@email.com"
+              placeholder={t("auth.login.emailPlaceholder")}
               placeholderTextColor="#6b7280"
               value={email}
               onChangeText={setEmail}
@@ -65,10 +67,10 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>{t("auth.login.password")}</Text>
             <TextInput
               style={styles.input}
-              placeholder="••••••••"
+              placeholder={t("auth.login.passwordPlaceholder")}
               placeholderTextColor="#6b7280"
               value={password}
               onChangeText={setPassword}
@@ -87,15 +89,15 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Sign In</Text>
+              <Text style={styles.buttonText}>{t("auth.login.signIn")}</Text>
             )}
           </TouchableOpacity>
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Don't have an account? </Text>
+            <Text style={styles.footerText}>{t("auth.login.noAccount")}</Text>
             <Link href="/register" asChild>
               <TouchableOpacity>
-                <Text style={styles.link}>Sign Up</Text>
+                <Text style={styles.link}>{t("auth.login.signUp")}</Text>
               </TouchableOpacity>
             </Link>
           </View>
@@ -185,4 +187,5 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
+
 

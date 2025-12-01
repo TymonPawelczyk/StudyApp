@@ -10,9 +10,11 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Link, router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../context/AuthContext";
 
 export default function RegisterScreen() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,17 +25,17 @@ export default function RegisterScreen() {
 
   const handleRegister = async () => {
     if (!email || !password || !confirmPassword) {
-      setError("Please fill in all fields");
+      setError(t("auth.register.fillAllFields"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("auth.register.passwordsNoMatch"));
       return;
     }
 
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError(t("auth.register.passwordTooShort"));
       return;
     }
 
@@ -57,14 +59,17 @@ export default function RegisterScreen() {
         <View style={styles.inner}>
           <View style={styles.successContainer}>
             <Text style={styles.successIcon}>✓</Text>
-            <Text style={styles.successTitle}>Check your email</Text>
+            <Text style={styles.successTitle}>
+              {t("auth.register.success.title")}
+            </Text>
             <Text style={styles.successText}>
-              We've sent a confirmation link to {email}. Please check your inbox
-              and verify your account.
+              {t("auth.register.success.message", { email })}
             </Text>
             <Link href="/login" asChild>
               <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Back to Login</Text>
+                <Text style={styles.buttonText}>
+                  {t("auth.register.success.backToLogin")}
+                </Text>
               </TouchableOpacity>
             </Link>
           </View>
@@ -80,16 +85,16 @@ export default function RegisterScreen() {
     >
       <View style={styles.inner}>
         <View style={styles.header}>
-          <Text style={styles.title}>StudyApp</Text>
-          <Text style={styles.subtitle}>Create your account</Text>
+          <Text style={styles.title}>{t("auth.register.title")}</Text>
+          <Text style={styles.subtitle}>{t("auth.register.subtitle")}</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>{t("auth.register.email")}</Text>
             <TextInput
               style={styles.input}
-              placeholder="your@email.com"
+              placeholder={t("auth.register.emailPlaceholder")}
               placeholderTextColor="#6b7280"
               value={email}
               onChangeText={setEmail}
@@ -100,10 +105,10 @@ export default function RegisterScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>{t("auth.register.password")}</Text>
             <TextInput
               style={styles.input}
-              placeholder="••••••••"
+              placeholder={t("auth.register.passwordPlaceholder")}
               placeholderTextColor="#6b7280"
               value={password}
               onChangeText={setPassword}
@@ -113,10 +118,12 @@ export default function RegisterScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Confirm Password</Text>
+            <Text style={styles.label}>
+              {t("auth.register.confirmPassword")}
+            </Text>
             <TextInput
               style={styles.input}
-              placeholder="••••••••"
+              placeholder={t("auth.register.passwordPlaceholder")}
               placeholderTextColor="#6b7280"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -135,15 +142,19 @@ export default function RegisterScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Create Account</Text>
+              <Text style={styles.buttonText}>
+                {t("auth.register.createAccount")}
+              </Text>
             )}
           </TouchableOpacity>
 
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Already have an account? </Text>
+            <Text style={styles.footerText}>
+              {t("auth.register.hasAccount")}
+            </Text>
             <Link href="/login" asChild>
               <TouchableOpacity>
-                <Text style={styles.link}>Sign In</Text>
+                <Text style={styles.link}>{t("auth.register.signIn")}</Text>
               </TouchableOpacity>
             </Link>
           </View>
@@ -254,4 +265,5 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
+
 

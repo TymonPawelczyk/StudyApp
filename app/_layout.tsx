@@ -3,6 +3,7 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { AuthProvider, useAuth } from "../context/AuthContext";
+import "../lib/i18n"; // Initialize i18n
 
 function RootLayoutNav() {
   const { session, isLoading } = useAuth();

@@ -1,0 +1,84 @@
+{
+  "app": {
+    "name": "StudyApp"
+  },
+  "auth": {
+    "login": {
+      "title": "StudyApp",
+      "subtitle": "Witaj ponownie",
+      "email": "Email",
+      "password": "Hasło",
+      "emailPlaceholder": "twoj@email.com",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Zaloguj się",
+      "signUp": "Zarejestruj się",
+      "noAccount": "Nie masz konta? ",
+      "fillAllFields": "Proszę wypełnić wszystkie pola"
+    },
+    "register": {
+      "title": "StudyApp",
+      "subtitle": "Utwórz swoje konto",
+      "email": "Email",
+      "password": "Hasło",
+      "confirmPassword": "Potwierdź hasło",
+      "emailPlaceholder": "twoj@email.com",
+      "passwordPlaceholder": "••••••••",
+      "createAccount": "Utwórz konto",
+      "hasAccount": "Masz już konto? ",
+      "signIn": "Zaloguj się",
+      "fillAllFields": "Proszę wypełnić wszystkie pola",
+      "passwordsNoMatch": "Hasła nie są zgodne",
+      "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków",
+      "success": {
+        "title": "Sprawdź swoją skrzynkę",
+        "message": "Wysłaliśmy link potwierdzający na adres {{email}}. Sprawdź swoją skrzynkę i zweryfikuj konto.",
+        "backToLogin": "Powrót do logowania"
+      }
+    }
+  },
+  "home": {
+    "title": "Witaj w StudyApp",
+    "getStarted": {
+      "title": "🎯 Zacznij",
+      "description": "Jesteś zalogowany! Zacznij budować funkcje aplikacji do nauki tutaj.",
+      "viewProfile": "Zobacz swój profil"
+    },
+    "signOut": "Wyloguj się"
+  },
+  "profile": {
+    "title": "Profil",
+    "account": "Konto",
+    "profile": "Profil",
+    "signedIn": "Zalogowany",
+    "userId": "ID użytkownika",
+    "createdAt": "Utworzono",
+    "lastSignIn": "Ostatnie logowanie",
+    "fullName": "Pełne imię",
+    "username": "Nazwa użytkownika",
+    "bio": "Bio",
+    "profileId": "ID profilu",
+    "updatedAt": "Zaktualizowano",
+    "refresh": "Odśwież",
+    "noProfile": "Nie znaleziono wiersza profilu dla tego konta. Utwórz go w Supabase, aby zobaczyć więcej szczegółów.",
+    "settings": {
+      "title": "Ustawienia",
+      "language": "Język",
+      "currentLanguage": "Aktualny język",
+      "selectLanguage": "Wybierz język",
+      "english": "English",
+      "polish": "Polski"
+    }
+  },
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "close": "Zamknij"
+  }
+}
+
