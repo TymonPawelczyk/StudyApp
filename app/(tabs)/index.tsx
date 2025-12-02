@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { useAuth } from "../../context/AuthContext";
 import { mockCourseMaterials } from "../../data/mockData";
 import { useProfile } from "../../hooks/useProfile";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default function HomeScreen() {
   const courseMaterials = mockCourseMaterials;
 
   return (
+    <SafeAreaProvider>
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       {/* Header Section */}
       <View style={styles.header}>
@@ -104,6 +106,7 @@ export default function HomeScreen() {
       {/* Bottom Spacing for Navigation */}
       <View style={styles.bottomSpacer} />
     </ScrollView>
+    </SafeAreaProvider>
   );
 }
 
