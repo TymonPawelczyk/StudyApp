@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../../context/AuthContext";
 import { mockAchievements, mockStatistics, mockWeeklyActivity } from "../../data/mockData";
 import { useProfile } from "../../hooks/useProfile";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function StatisticsScreen() {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ export default function StatisticsScreen() {
   const maxMinutes = Math.max(...weeklyActivity.map(d => d.minutes));
 
   return (
+    <SafeAreaProvider>
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       {/* Header */}
       <View style={styles.header}>
@@ -140,6 +142,7 @@ export default function StatisticsScreen() {
 
       <View style={styles.bottomSpacer} />
     </ScrollView>
+    </SafeAreaProvider>
   );
 }
 
