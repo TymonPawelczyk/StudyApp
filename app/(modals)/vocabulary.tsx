@@ -176,6 +176,10 @@ const styles = StyleSheet.create({
   options: {
     gap: 12,
     marginTop: 8,
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
   option: {
     backgroundColor: "#1e293b",
@@ -184,6 +188,9 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: "#334155",
     alignItems: "center",
+    flexGrow: 1,
+    flexBasis: "45%",
+    marginBottom: 12,
   },
   optionText: {
     color: "#f1f5f9",
