@@ -1,16 +1,16 @@
+import { Link, router } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  ActivityIndicator,
+  View,
 } from "react-native";
-import { Link, router } from "expo-router";
-import { useTranslation } from "react-i18next";
 import { useAuth } from "../../context/AuthContext";
 
 export default function LoginScreen() {
@@ -187,5 +187,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-
-
