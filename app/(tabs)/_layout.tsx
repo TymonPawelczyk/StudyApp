@@ -5,6 +5,11 @@ import { useAuth } from "../../context/AuthContext";
 export default function TabsLayout() {
   const { user } = useAuth();
 
+  const plan =
+    (user?.app_metadata as any)?.plan ??
+    (user?.user_metadata as any)?.plan ??
+    null;
+
   return (
     <Tabs
       screenOptions={{
