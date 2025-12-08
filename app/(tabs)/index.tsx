@@ -1,111 +1,146 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAuth } from "../../context/AuthContext";
 import { mockCourseMaterials } from "../../data/mockData";
 import { useProfile } from "../../hooks/useProfile";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { profile } = useProfile();
 
-  const displayName = 
-    (profile?.full_name as string | undefined) || 
-    (profile?.username as string | undefined) || 
-    user?.email?.split('@')[0] || 
+  const displayName =
+    (profile?.full_name as string | undefined) ||
+    (profile?.username as string | undefined) ||
+    user?.email?.split("@")[0] ||
     "Student";
 
   const courseMaterials = mockCourseMaterials;
 
   return (
     <SafeAreaProvider>
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      {/* Header Section */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.greeting}>{t("home.welcome")}</Text>
-          <Text style={styles.userName}>{displayName}</Text>
-        </View>
-        <View style={styles.planBadge}>
-          <Text style={styles.planText}>{t("home.plan.basic")}</Text>
-        </View>
-      </View>
-
-      {/* Progress Card */}
-      <View style={styles.progressCard}>
-        <View style={styles.cardContent}>
-          <View style={styles.cardTextContainer}>
-            <View style={styles.newBadge}>
-              <Text style={styles.newBadgeText}>{t("home.progress.badge")}</Text>
-            </View>
-            <Text style={styles.cardTitle}>{t("home.progress.title")}</Text>
-            <Text style={styles.cardSubtitle}>{t("home.progress.subtitle")}</Text>
-          </View>
-          <View style={styles.progressIconContainer}>
-            <Ionicons name="trending-up" size={40} color="#c0f000" />
-          </View>
-        </View>
-      </View>
-
-      {/* Course Materials Card */}
-      <View style={styles.materialsCard}>
-        <View style={styles.materialsHeader}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {/* Header Section */}
+        <View style={styles.header}>
           <View>
-            <Text style={styles.materialsTitle}>{t("home.materials.title")}</Text>
-            <View style={styles.usersRow}>
-              <Ionicons name="people" size={16} color="#94a3b8" />
-              <Text style={styles.usersText}>{t("home.materials.activeUsers", { count: courseMaterials.activeUsers })}</Text>
+            <Text style={styles.greeting}>{t("home.welcome")}</Text>
+            <Text style={styles.userName}>{displayName}</Text>
+          </View>
+          <View style={styles.planBadge}>
+            <Text style={styles.planText}>{t("home.plan.basic")}</Text>
+          </View>
+        </View>
+
+        {/* Progress Card */}
+        <View style={styles.progressCard}>
+          <View style={styles.cardContent}>
+            <View style={styles.cardTextContainer}>
+              <View style={styles.newBadge}>
+                <Text style={styles.newBadgeText}>
+                  {t("home.progress.badge")}
+                </Text>
+              </View>
+              <Text style={styles.cardTitle}>{t("home.progress.title")}</Text>
+              <Text style={styles.cardSubtitle}>
+                {t("home.progress.subtitle")}
+              </Text>
+            </View>
+            <View style={styles.progressIconContainer}>
+              <Ionicons name="trending-up" size={40} color="#c0f000" />
             </View>
           </View>
         </View>
-        
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={styles.primaryButton}>
-            <Text style={styles.primaryButtonText}>{t("home.materials.startButton")}</Text>
-            <Ionicons name="arrow-forward" size={18} color="#0f172a" />
+
+        {/* Course Materials Card */}
+        <View style={styles.materialsCard}>
+          <View style={styles.materialsHeader}>
+            <View>
+              <Text style={styles.materialsTitle}>
+                {t("home.materials.title")}
+              </Text>
+              <View style={styles.usersRow}>
+                <Ionicons name="people" size={16} color="#94a3b8" />
+                <Text style={styles.usersText}>
+                  {t("home.materials.activeUsers", {
+                    count: courseMaterials.activeUsers,
+                  })}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.actionButtons}>
+            <TouchableOpacity style={styles.primaryButton}>
+              <Text style={styles.primaryButtonText}>
+                {t("home.materials.startButton")}
+              </Text>
+              <Ionicons name="arrow-forward" size={18} color="#0f172a" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.secondaryButton}>
+              <Text style={styles.secondaryButtonText}>
+                {t("home.materials.upgradeButton")}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Quick Sections Grid */}
+        <View style={styles.sectionsGrid}>
+          <Link href="/(modals)/vocabulary" asChild>
+            <TouchableOpacity style={styles.sectionCard}>
+              <View style={styles.sectionIconContainer}>
+                <Ionicons name="book" size={32} color="#c0f000" />
+              </View>
+              <Text style={styles.sectionTitle}>
+                {t("home.sections.vocabulary.title")}
+              </Text>
+              <Text style={styles.sectionSubtitle}>
+                {t("home.sections.vocabulary.subtitle")}
+              </Text>
+            </TouchableOpacity>
+          </Link>
+
+          <TouchableOpacity style={styles.sectionCard}>
+            <View style={styles.sectionIconContainer}>
+              <Ionicons name="headset" size={32} color="#c0f000" />
+            </View>
+            <Text style={styles.sectionTitle}>
+              {t("home.sections.listening.title")}
+            </Text>
+            <Text style={styles.sectionSubtitle}>
+              {t("home.sections.listening.subtitle")}
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.secondaryButton}>
-            <Text style={styles.secondaryButtonText}>{t("home.materials.upgradeButton")}</Text>
+
+          <TouchableOpacity style={styles.sectionCard}>
+            <View style={styles.sectionIconContainer}>
+              <Ionicons name="create" size={32} color="#c0f000" />
+            </View>
+            <Text style={styles.sectionTitle}>
+              {t("home.sections.grammar.title")}
+            </Text>
+            <Text style={styles.sectionSubtitle}>
+              {t("home.sections.grammar.subtitle")}
+            </Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Quick Sections Grid */}
-      <View style={styles.sectionsGrid}>
-        <Link href="/(modals)/vocabulary" asChild>
-        <TouchableOpacity style={styles.sectionCard}>
-          <View style={styles.sectionIconContainer}>
-            <Ionicons name="book" size={32} color="#c0f000" />
-          </View>
-          <Text style={styles.sectionTitle}>{t("home.sections.vocabulary.title")}</Text>
-          <Text style={styles.sectionSubtitle}>{t("home.sections.vocabulary.subtitle")}</Text>
-        </TouchableOpacity>
-        </Link>
-
-        <TouchableOpacity style={styles.sectionCard}>
-          <View style={styles.sectionIconContainer}>
-            <Ionicons name="headset" size={32} color="#c0f000" />
-          </View>
-          <Text style={styles.sectionTitle}>{t("home.sections.listening.title")}</Text>
-          <Text style={styles.sectionSubtitle}>{t("home.sections.listening.subtitle")}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.sectionCard}>
-          <View style={styles.sectionIconContainer}>
-            <Ionicons name="create" size={32} color="#c0f000" />
-          </View>
-          <Text style={styles.sectionTitle}>{t("home.sections.grammar.title")}</Text>
-          <Text style={styles.sectionSubtitle}>{t("home.sections.grammar.subtitle")}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Bottom Spacing for Navigation */}
-      <View style={styles.bottomSpacer} />
-    </ScrollView>
+        {/* Bottom Spacing for Navigation */}
+        <View style={styles.bottomSpacer} />
+      </ScrollView>
     </SafeAreaProvider>
   );
 }
@@ -120,7 +155,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 100, // Space for tab bar
   },
-  
+
   // Header
   header: {
     flexDirection: "row",
