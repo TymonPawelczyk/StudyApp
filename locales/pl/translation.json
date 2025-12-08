@@ -130,6 +130,33 @@
     "delete": "Usuń",
     "edit": "Edytuj",
     "close": "Zamknij"
+  },
+  "materialsScreen": {
+    "title": "Materiały",
+    "subtitle": "Wszystkie lekcje premium i pliki do pobrania",
+    "lockedTitle": "Wymagana aktualizacja",
+    "lockedDescription": "Twój plan nie obejmuje materiałów kursowych. Ulepsz plan, aby uzyskać dostęp do plików, wideo i ćwiczeń.",
+    "upgradeButton": "Ulepsz plan",
+    "contactButton": "Kontakt ze wsparciem",
+    "available": "Dostępne materiały",
+    "new": "NOWOŚĆ",
+    "duration": "{{minutes}} min",
+    "level": "Poziom: {{level}}",
+    "format": "Format: {{format}}"
+  },
+  "calendarScreen": {
+    "title": "Kalendarz",
+    "subtitle": "Planuj sesje i dołączaj do nadchodzących lekcji online.",
+    "upcoming": "Nadchodzące lekcje na żywo",
+    "locked": "Zablokowane",
+    "lockedDescription": "Twój plan nie obejmuje lekcji na żywo. Ulepsz plan, aby dołączać do zajęć.",
+    "join": "Dołącz",
+    "joinLocked": "Ulepsz",
+    "startAt": "Start {{date}}",
+    "duration": "{{minutes}} min",
+    "level": "Poziom: {{level}}",
+    "teacher": "Prowadzący: {{teacher}}",
+    "location": "Miejsce: {{location}}"
   }
 }
 
