@@ -36,53 +36,67 @@ export default function TabsLayout() {
         }}
       />
       {/* Calendar Screen */}
-      <Tabs.Screen
-        name="calendar"
-        options={{
-          title: "Calendar",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
-          ),
-        }}
-      />
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="calendar"
+          options={{
+            title: "Calendar",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="calendar-outline" size={size} color={color} />
+            ),
+          }}
+        ></Tabs.Screen>
+      </Tabs.Protected>
       {/* Materials Screen */}
-      <Tabs.Screen
-        name="materials"
-        options={{
-          title: "Materials",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="book-outline" size={size} color={color} />
-          ),
-        }}
-      />
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="materials"
+          options={{
+            title: "Materials",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="book-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
       {/* Screen with statistics */}
-      <Tabs.Screen
-        name="statistics"
-        options={{
-          title: "Statistics",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bar-chart-outline" size={size} color={color} />
-          ),
-        }}
-      />
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="statistics"
+          options={{
+            title: "Statistics",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="bar-chart-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
       {/* Profile Screen */}
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" size={size} color={color} />
-          ),
-          tabBarBadge: user ? undefined : "!",
-        }}
-      />
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons
+                name="person-circle-outline"
+                size={size}
+                color={color}
+              />
+            ),
+            tabBarBadge: user ? undefined : "!",
+          }}
+        />
+      </Tabs.Protected>
       {/* Hidden Edit Profile Screen */}
-      <Tabs.Screen
-        name="edit-profile"
-        options={{
-          href: null, // Hide from tab bar
-        }}
-      />
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="edit-profile"
+          options={{
+            href: null, // Hide from tab bar
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }
