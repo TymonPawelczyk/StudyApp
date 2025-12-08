@@ -1,6 +1,12 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAuth } from "../../context/AuthContext";
 import { mockMaterials, type CourseMaterial } from "../../data/mockData";
@@ -21,7 +27,10 @@ export default function MaterialsScreen() {
 
   return (
     <SafeAreaProvider>
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>{t("materialsScreen.title")}</Text>
           <Text style={styles.subtitle}>{t("materialsScreen.subtitle")}</Text>
@@ -30,20 +39,30 @@ export default function MaterialsScreen() {
         {!hasAccess ? (
           <View style={styles.lockedCard}>
             <Ionicons name="lock-closed" size={28} color="#c0f000" />
-            <Text style={styles.lockedTitle}>{t("materialsScreen.lockedTitle")}</Text>
-            <Text style={styles.lockedDesc}>{t("materialsScreen.lockedDescription")}</Text>
+            <Text style={styles.lockedTitle}>
+              {t("materialsScreen.lockedTitle")}
+            </Text>
+            <Text style={styles.lockedDesc}>
+              {t("materialsScreen.lockedDescription")}
+            </Text>
             <View style={styles.lockedActions}>
               <TouchableOpacity style={styles.primaryBtn}>
-                <Text style={styles.primaryBtnText}>{t("materialsScreen.upgradeButton")}</Text>
+                <Text style={styles.primaryBtnText}>
+                  {t("materialsScreen.upgradeButton")}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.secondaryBtn}>
-                <Text style={styles.secondaryBtnText}>{t("materialsScreen.contactButton")}</Text>
+                <Text style={styles.secondaryBtnText}>
+                  {t("materialsScreen.contactButton")}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
         ) : (
           <View style={styles.listCard}>
-            <Text style={styles.sectionTitle}>{t("materialsScreen.available")}</Text>
+            <Text style={styles.sectionTitle}>
+              {t("materialsScreen.available")}
+            </Text>
             <View style={styles.list}>
               {materials.map((item) => (
                 <View key={item.id} style={styles.item}>
@@ -66,17 +85,25 @@ export default function MaterialsScreen() {
                         <Text style={styles.itemTitle}>{item.title}</Text>
                         {item.isNew ? (
                           <View style={styles.newBadge}>
-                            <Text style={styles.newBadgeText}>{t("materialsScreen.new")}</Text>
+                            <Text style={styles.newBadgeText}>
+                              {t("materialsScreen.new")}
+                            </Text>
                           </View>
                         ) : null}
                       </View>
                       <Text style={styles.itemDesc}>{item.description}</Text>
                       <View style={styles.metaRow}>
                         <Text style={styles.meta}>
-                          {t("materialsScreen.duration", { minutes: item.minutes })}
+                          {t("materialsScreen.duration", {
+                            minutes: item.minutes,
+                          })}
                         </Text>
-                        <Text style={styles.meta}>{t("materialsScreen.level", { level: item.level })}</Text>
-                        <Text style={styles.meta}>{t("materialsScreen.format", { format: item.format })}</Text>
+                        <Text style={styles.meta}>
+                          {t("materialsScreen.level", { level: item.level })}
+                        </Text>
+                        <Text style={styles.meta}>
+                          {t("materialsScreen.format", { format: item.format })}
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -97,7 +124,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#0f172a" },
   content: { paddingHorizontal: 24, paddingTop: 60, paddingBottom: 100 },
   header: { gap: 8, marginBottom: 24 },
-  title: { fontSize: 28, fontWeight: "800", color: "#f1f5f9", letterSpacing: -0.5 },
+  title: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#f1f5f9",
+    letterSpacing: -0.5,
+  },
   subtitle: { fontSize: 15, color: "#94a3b8", lineHeight: 22 },
   lockedCard: {
     backgroundColor: "#1e293b",
@@ -117,7 +149,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
   },
-  primaryBtnText: { color: "#0f172a", fontSize: 14, fontWeight: "800", letterSpacing: 0.3 },
+  primaryBtnText: {
+    color: "#0f172a",
+    fontSize: 14,
+    fontWeight: "800",
+    letterSpacing: 0.3,
+  },
   secondaryBtn: {
     flex: 1,
     borderColor: "#334155",
@@ -134,7 +171,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#334155",
   },
-  sectionTitle: { fontSize: 18, fontWeight: "700", color: "#f1f5f9", marginBottom: 12 },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#f1f5f9",
+    marginBottom: 12,
+  },
   list: { gap: 14 },
   item: {
     flexDirection: "row",
@@ -169,7 +211,12 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 8,
   },
-  newBadgeText: { color: "#0f172a", fontSize: 10, fontWeight: "900", letterSpacing: 0.5 },
+  newBadgeText: {
+    color: "#0f172a",
+    fontSize: 10,
+    fontWeight: "900",
+    letterSpacing: 0.5,
+  },
   playBtn: {
     width: 36,
     height: 36,
