@@ -1,18 +1,22 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { useAuth } from "../../context/AuthContext";
-import { mockAchievements, mockStatistics, mockWeeklyActivity } from "../../data/mockData";
-import { useProfile } from "../../hooks/useProfile";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useAuth } from "../../context/AuthContext";
+import {
+  mockAchievements,
+  mockStatistics,
+  mockWeeklyActivity,
+} from "../../data/mockData";
+import { useProfile } from "../../hooks/useProfile";
 
 export default function StatisticsScreen() {
   const { user } = useAuth();
   const { profile } = useProfile();
 
-  const displayName = 
-    (profile?.full_name as string | undefined) || 
-    (profile?.username as string | undefined) || 
-    user?.email?.split('@')[0] || 
+  const displayName =
+    (profile?.full_name as string | undefined) ||
+    (profile?.username as string | undefined) ||
+    user?.email?.split("@")[0] ||
     "Student";
 
   // Use mock data - replace with real data from Supabase later
@@ -20,128 +24,161 @@ export default function StatisticsScreen() {
   const weeklyActivity = mockWeeklyActivity;
   const achievements = mockAchievements;
 
-  const completionRate = Math.round((stats.completedLessons / stats.totalLessons) * 100);
+  const completionRate = Math.round(
+    (stats.completedLessons / stats.totalLessons) * 100
+  );
   const studyHours = Math.floor(stats.totalStudyTime / 60);
   const studyMinutes = stats.totalStudyTime % 60;
-  const maxMinutes = Math.max(...weeklyActivity.map(d => d.minutes));
+  const maxMinutes = Math.max(...weeklyActivity.map((d) => d.minutes));
 
   return (
     <SafeAreaProvider>
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.greeting}>Your Progress</Text>
-          <Text style={styles.userName}>{displayName}</Text>
-        </View>
-        <View style={styles.streakBadge}>
-          <Ionicons name="flame" size={20} color="#ff6b35" />
-          <Text style={styles.streakText}>{stats.currentStreak} day streak</Text>
-        </View>
-      </View>
-
-      {/* Main Stats Grid */}
-      <View style={styles.statsGrid}>
-        <View style={styles.statCard}>
-          <View style={styles.statIconContainer}>
-            <Ionicons name="checkmark-circle" size={28} color="#c0f000" />
-          </View>
-          <Text style={styles.statValue}>{stats.completedLessons}/{stats.totalLessons}</Text>
-          <Text style={styles.statLabel}>Lessons Completed</Text>
-          <View style={styles.progressBar}>
-            <View style={[styles.progressFill, { width: `${completionRate}%` }]} />
-          </View>
-          <Text style={styles.progressText}>{completionRate}%</Text>
-        </View>
-
-        <View style={styles.statCard}>
-          <View style={styles.statIconContainer}>
-            <Ionicons name="book" size={28} color="#c0f000" />
-          </View>
-          <Text style={styles.statValue}>{stats.wordsLearned}</Text>
-          <Text style={styles.statLabel}>Words Learned</Text>
-        </View>
-      </View>
-
-      {/* Time Stats */}
-      <View style={styles.timeCard}>
-        <View style={styles.timeHeader}>
-          <Ionicons name="time-outline" size={24} color="#c0f000" />
-          <Text style={styles.timeTitle}>Total Study Time</Text>
-        </View>
-        <Text style={styles.timeValue}>
-          {studyHours}h {studyMinutes}m
-        </Text>
-        <View style={styles.timeStats}>
-          <View style={styles.timeStat}>
-            <Text style={styles.timeStatValue}>{stats.currentStreak}</Text>
-            <Text style={styles.timeStatLabel}>Current Streak</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.timeStat}>
-            <Text style={styles.timeStatValue}>{stats.longestStreak}</Text>
-            <Text style={styles.timeStatLabel}>Longest Streak</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Weekly Activity Chart */}
-      <View style={styles.chartCard}>
-        <Text style={styles.chartTitle}>Weekly Activity</Text>
-        <Text style={styles.chartSubtitle}>Minutes per day</Text>
-        
-        <View style={styles.chart}>
-          {weeklyActivity.map((item, index) => {
-            const height = (item.minutes / maxMinutes) * 100;
-            return (
-              <View key={index} style={styles.chartBarContainer}>
-                <View style={styles.chartBarWrapper}>
-                  <View style={[styles.chartBar, { height: `${height}%` }]} />
-                </View>
-                <Text style={styles.chartLabel}>{item.day}</Text>
-                <Text style={styles.chartValue}>{item.minutes}</Text>
-              </View>
-            );
-          })}
-        </View>
-      </View>
-
-      {/* Weekly Goal */}
-      <View style={styles.goalCard}>
-        <View style={styles.goalHeader}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {/* Header */}
+        <View style={styles.header}>
           <View>
-            <Text style={styles.goalTitle}>Weekly Goal</Text>
-            <Text style={styles.goalSubtitle}>{stats.weeklyProgress} of {stats.weeklyGoal} days completed</Text>
+            <Text style={styles.greeting}>Your Progress</Text>
+            <Text style={styles.userName}>{displayName}</Text>
           </View>
-          <View style={styles.goalBadge}>
-            <Text style={styles.goalBadgeText}>{Math.round((stats.weeklyProgress / stats.weeklyGoal) * 100)}%</Text>
+          <View style={styles.streakBadge}>
+            <Ionicons name="flame" size={20} color="#ff6b35" />
+            <Text style={styles.streakText}>
+              {stats.currentStreak} day streak
+            </Text>
           </View>
         </View>
-        <View style={styles.goalProgress}>
-          <View style={[styles.goalProgressFill, { width: `${(stats.weeklyProgress / stats.weeklyGoal) * 100}%` }]} />
-        </View>
-      </View>
 
-      {/* Achievements */}
-      <View style={styles.achievementsCard}>
-        <Text style={styles.achievementsTitle}>Recent Achievements</Text>
-        <View style={styles.achievementsList}>
-          {achievements.map((achievement) => (
-            <View key={achievement.id} style={styles.achievement}>
-              <View style={[styles.achievementIcon, { backgroundColor: achievement.color }]}>
-                <Ionicons name={achievement.icon as any} size={20} color="#0f172a" />
-              </View>
-              <View style={styles.achievementContent}>
-                <Text style={styles.achievementName}>{achievement.name}</Text>
-                <Text style={styles.achievementDesc}>{achievement.description}</Text>
-              </View>
+        {/* Main Stats Grid */}
+        <View style={styles.statsGrid}>
+          <View style={styles.statCard}>
+            <View style={styles.statIconContainer}>
+              <Ionicons name="checkmark-circle" size={28} color="#c0f000" />
             </View>
-          ))}
-        </View>
-      </View>
+            <Text style={styles.statValue}>
+              {stats.completedLessons}/{stats.totalLessons}
+            </Text>
+            <Text style={styles.statLabel}>Lessons Completed</Text>
+            <View style={styles.progressBar}>
+              <View
+                style={[styles.progressFill, { width: `${completionRate}%` }]}
+              />
+            </View>
+            <Text style={styles.progressText}>{completionRate}%</Text>
+          </View>
 
-      <View style={styles.bottomSpacer} />
-    </ScrollView>
+          <View style={styles.statCard}>
+            <View style={styles.statIconContainer}>
+              <Ionicons name="book" size={28} color="#c0f000" />
+            </View>
+            <Text style={styles.statValue}>{stats.wordsLearned}</Text>
+            <Text style={styles.statLabel}>Words Learned</Text>
+          </View>
+        </View>
+
+        {/* Time Stats */}
+        <View style={styles.timeCard}>
+          <View style={styles.timeHeader}>
+            <Ionicons name="time-outline" size={24} color="#c0f000" />
+            <Text style={styles.timeTitle}>Total Study Time</Text>
+          </View>
+          <Text style={styles.timeValue}>
+            {studyHours}h {studyMinutes}m
+          </Text>
+          <View style={styles.timeStats}>
+            <View style={styles.timeStat}>
+              <Text style={styles.timeStatValue}>{stats.currentStreak}</Text>
+              <Text style={styles.timeStatLabel}>Current Streak</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.timeStat}>
+              <Text style={styles.timeStatValue}>{stats.longestStreak}</Text>
+              <Text style={styles.timeStatLabel}>Longest Streak</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Weekly Activity Chart */}
+        <View style={styles.chartCard}>
+          <Text style={styles.chartTitle}>Weekly Activity</Text>
+          <Text style={styles.chartSubtitle}>Minutes per day</Text>
+
+          <View style={styles.chart}>
+            {weeklyActivity.map((item, index) => {
+              const height = (item.minutes / maxMinutes) * 100;
+              return (
+                <View key={index} style={styles.chartBarContainer}>
+                  <View style={styles.chartBarWrapper}>
+                    <View style={[styles.chartBar, { height: `${height}%` }]} />
+                  </View>
+                  <Text style={styles.chartLabel}>{item.day}</Text>
+                  <Text style={styles.chartValue}>{item.minutes}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+
+        {/* Weekly Goal */}
+        <View style={styles.goalCard}>
+          <View style={styles.goalHeader}>
+            <View>
+              <Text style={styles.goalTitle}>Weekly Goal</Text>
+              <Text style={styles.goalSubtitle}>
+                {stats.weeklyProgress} of {stats.weeklyGoal} days completed
+              </Text>
+            </View>
+            <View style={styles.goalBadge}>
+              <Text style={styles.goalBadgeText}>
+                {Math.round((stats.weeklyProgress / stats.weeklyGoal) * 100)}%
+              </Text>
+            </View>
+          </View>
+          <View style={styles.goalProgress}>
+            <View
+              style={[
+                styles.goalProgressFill,
+                {
+                  width: `${(stats.weeklyProgress / stats.weeklyGoal) * 100}%`,
+                },
+              ]}
+            />
+          </View>
+        </View>
+
+        {/* Achievements */}
+        <View style={styles.achievementsCard}>
+          <Text style={styles.achievementsTitle}>Recent Achievements</Text>
+          <View style={styles.achievementsList}>
+            {achievements.map((achievement) => (
+              <View key={achievement.id} style={styles.achievement}>
+                <View
+                  style={[
+                    styles.achievementIcon,
+                    { backgroundColor: achievement.color },
+                  ]}
+                >
+                  <Ionicons
+                    name={achievement.icon as any}
+                    size={20}
+                    color="#0f172a"
+                  />
+                </View>
+                <View style={styles.achievementContent}>
+                  <Text style={styles.achievementName}>{achievement.name}</Text>
+                  <Text style={styles.achievementDesc}>
+                    {achievement.description}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.bottomSpacer} />
+      </ScrollView>
     </SafeAreaProvider>
   );
 }
