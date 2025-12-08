@@ -22,6 +22,16 @@ export interface VocabularyItem {
   correct: string;
 }
 
+export interface CourseMaterial {
+  id: string;
+  title: string;
+  description: string;
+  minutes: number;
+  level: "A1" | "A2" | "B1" | "B2";
+  format: "Video" | "PDF" | "Audio";
+  isNew?: boolean;
+}
+
 // Statistics mock data
 export const mockStatistics: Statistics = {
   totalLessons: 45,
@@ -136,5 +146,34 @@ export const mockAchievements: Achievement[] = [
     description: "30 lessons in a month",
     icon: "ribbon",
     color: "#22c55e",
+  },
+];
+
+// Course materials mock data
+export const mockMaterials: CourseMaterial[] = [
+  {
+    id: "vid-1",
+    title: "Phrasal Verbs in Context",
+    description: "15 everyday phrasal verbs with examples",
+    minutes: 18,
+    level: "B1",
+    format: "Video",
+    isNew: true,
+  },
+  {
+    id: "pdf-1",
+    title: "Business Email Templates",
+    description: "Ready-to-use templates with tips",
+    minutes: 12,
+    level: "B2",
+    format: "PDF",
+  },
+  {
+    id: "aud-1",
+    title: "Listening: Travel Stories",
+    description: "Comprehension practice with transcript",
+    minutes: 22,
+    level: "B1",
+    format: "Audio",
   },
 ];
