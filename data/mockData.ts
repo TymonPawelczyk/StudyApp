@@ -32,6 +32,16 @@ export interface CourseMaterial {
   isNew?: boolean;
 }
 
+export interface Lesson {
+  id: string;
+  title: string;
+  teacher: string;
+  startsAt: string;
+  duration: number;
+  level: "A2" | "B1" | "B2";
+  location: string;
+}
+
 // Statistics mock data
 export const mockStatistics: Statistics = {
   totalLessons: 45,
@@ -175,5 +185,36 @@ export const mockMaterials: CourseMaterial[] = [
     minutes: 22,
     level: "B1",
     format: "Audio",
+  },
+];
+
+// Live lessons mock data
+export const mockLessons: Lesson[] = [
+  {
+    id: "lsn-1",
+    title: "Speaking Club: Travel Stories",
+    teacher: "Anna Kowalska",
+    startsAt: "2025-12-02T18:00:00Z",
+    duration: 60,
+    level: "B1",
+    location: "Zoom",
+  },
+  {
+    id: "lsn-2",
+    title: "Business English: Emails",
+    teacher: "John Smith",
+    startsAt: "2025-12-03T17:00:00Z",
+    duration: 45,
+    level: "B2",
+    location: "Google Meet",
+  },
+  {
+    id: "lsn-3",
+    title: "Grammar Boost: Past Tenses",
+    teacher: "Ewa Nowak",
+    startsAt: "2025-12-04T19:30:00Z",
+    duration: 50,
+    level: "A2",
+    location: "Zoom",
   },
 ];
