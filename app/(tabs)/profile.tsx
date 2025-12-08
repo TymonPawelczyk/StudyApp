@@ -1,19 +1,19 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
-import { router } from "expo-router";
-import { useTranslation } from "react-i18next";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../context/AuthContext";
-import { useProfile, Profile } from "../../hooks/useProfile";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Profile, useProfile } from "../../hooks/useProfile";
 
 const PROFILE_STORAGE_KEY = "@StudyApp:localProfile";
 
@@ -45,7 +45,13 @@ const formatDateTime = (value?: string | null) => {
 export default function ProfileScreen() {
   const { t, i18n } = useTranslation();
   const { user, signOut } = useAuth();
-  const { profile: serverProfile, isLoading, error, notFound, refresh } = useProfile();
+  const {
+    profile: serverProfile,
+    isLoading,
+    error,
+    notFound,
+    refresh,
+  } = useProfile();
   const [localProfile, setLocalProfile] = useState<Profile | null>(null);
   const [displayProfile, setDisplayProfile] = useState<Profile | null>(null);
 
@@ -102,7 +108,9 @@ export default function ProfileScreen() {
   };
 
   const getLanguageName = (code: string) => {
-    return code === "en" ? t("profile.settings.english") : t("profile.settings.polish");
+    return code === "en"
+      ? t("profile.settings.english")
+      : t("profile.settings.polish");
   };
 
   const displayName =
@@ -132,7 +140,9 @@ export default function ProfileScreen() {
         </View>
         <View style={styles.headerText}>
           <Text style={styles.title}>{displayName}</Text>
-          {user?.email ? <Text style={styles.subtitle}>{user.email}</Text> : null}
+          {user?.email ? (
+            <Text style={styles.subtitle}>{user.email}</Text>
+          ) : null}
           <Text style={styles.status}>{t("profile.signedIn")}</Text>
         </View>
         <TouchableOpacity
@@ -197,7 +207,10 @@ export default function ProfileScreen() {
                   label={t("profile.username")}
                   value={profile.username as string}
                 />
-                <InfoRow label={t("profile.bio")} value={profile.bio as string} />
+                <InfoRow
+                  label={t("profile.bio")}
+                  value={profile.bio as string}
+                />
                 <InfoRow
                   label={t("profile.website")}
                   value={profile.website as string}
@@ -217,7 +230,8 @@ export default function ProfileScreen() {
         <Text style={styles.cardTitle}>{t("profile.settings.title")}</Text>
         <View style={styles.languageSection}>
           <Text style={styles.languageLabel}>
-            {t("profile.settings.currentLanguage")}: {getLanguageName(i18n.language)}
+            {t("profile.settings.currentLanguage")}:{" "}
+            {getLanguageName(i18n.language)}
           </Text>
           <View style={styles.languageButtons}>
             <TouchableOpacity
