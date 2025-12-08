@@ -130,6 +130,33 @@
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close"
+  },
+  "materialsScreen": {
+    "title": "Materials",
+    "subtitle": "All premium lessons and downloads",
+    "lockedTitle": "Upgrade required",
+    "lockedDescription": "Your plan doesn't include course materials yet. Upgrade to access downloads, videos, and exercises.",
+    "upgradeButton": "Upgrade plan",
+    "contactButton": "Contact support",
+    "available": "Available materials",
+    "new": "NEW",
+    "duration": "{{minutes}} min",
+    "level": "Level: {{level}}",
+    "format": "Format: {{format}}"
+  },
+  "calendarScreen": {
+    "title": "Calendar",
+    "subtitle": "Plan your study sessions and join upcoming live lessons.",
+    "upcoming": "Upcoming live lessons",
+    "locked": "Locked",
+    "lockedDescription": "Your plan doesn’t include live lessons yet. Upgrade to join sessions.",
+    "join": "Join",
+    "joinLocked": "Upgrade",
+    "startAt": "Starts {{date}}",
+    "duration": "{{minutes}} min",
+    "level": "Level: {{level}}",
+    "teacher": "Teacher: {{teacher}}",
+    "location": "Location: {{location}}"
   }
 }
 
