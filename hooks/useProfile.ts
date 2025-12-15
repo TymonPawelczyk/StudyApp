@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { PostgrestError } from "@supabase/supabase-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PostgrestError } from "@supabase/supabase-js";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
 
