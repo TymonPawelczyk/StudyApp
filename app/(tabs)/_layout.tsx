@@ -97,6 +97,15 @@ export default function TabsLayout() {
           }}
         />
       </Tabs.Protected>
+      {/* Hidden Settings Screen */}
+      <Tabs.Protected guard={user != null}>
+        <Tabs.Screen
+          name="settings"
+          options={{
+            href: null, // accessed via burger menu
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }
