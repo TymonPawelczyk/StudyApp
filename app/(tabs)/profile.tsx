@@ -9,17 +9,15 @@ import {
   Image,
   Pressable,
   RefreshControl,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../../context/AuthContext";
-import { Profile, useProfile } from "../../hooks/useProfile";
-
+import { getUserRoleID, Profile, useProfile } from "../../hooks/useProfile";
 
 const PROFILE_STORAGE_KEY = "@StudyApp:localProfile";
 
@@ -110,11 +108,11 @@ export default function ProfileScreen() {
 
   const profile = displayProfile;
 
-  const role = ((user?.app_metadata as any)?.role ??
-    (user?.user_metadata as any)?.role ??
-    "user") as string;
-  // const isTeacher = role === "teacher";
-  const isTeacher = true; // For demo purposes, assume all users are teachers
+  const roleID = getUserRoleID(profile);
+
+  const isStudent = roleID === 3; // 3 = student
+  const isTeacher = roleID === 2; // 2 = teacher
+  const isAdmin = roleID === 1; // 1 = admin
 
   const openSettings = () => {
     setMenuOpen(false);
@@ -150,154 +148,161 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaProvider>
-    <SafeAreaView style={styles.container}>
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View style={styles.header}>
-        <View style={styles.avatarContainer}>
-          {avatarUrl ? (
-            <Image source={{ uri: avatarUrl }} style={styles.avatar} />
-          ) : (
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{initials}</Text>
+      <SafeAreaView style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.content}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <View style={styles.header}>
+            <View style={styles.avatarContainer}>
+              {avatarUrl ? (
+                <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+              ) : (
+                <View style={styles.avatar}>
+                  <Text style={styles.avatarText}>{initials}</Text>
+                </View>
+              )}
             </View>
-          )}
-        </View>
-        <View style={styles.headerText}>
-          <Text style={styles.title}>{displayName}</Text>
-          {user?.email ? (
-            <Text style={styles.subtitle}>{user.email}</Text>
-          ) : null}
-          <Text style={styles.status}>{t("profile.signedIn")}</Text>
-        </View>
-        <View style={styles.menuContainer}>
-          <Pressable
-            style={styles.menuButton}
-            onPress={() => setMenuOpen((prev) => !prev)}
-          >
-            <Ionicons name="menu" size={24} color="#c0f000" />
-          </Pressable>
-
-          {menuOpen ? (
-            <>
+            <View style={styles.headerText}>
+              <Text style={styles.title}>{displayName}</Text>
+              {user?.email ? (
+                <Text style={styles.subtitle}>{user.email}</Text>
+              ) : null}
+              <Text style={styles.status}>{t("profile.signedIn")}</Text>
+            </View>
+            <View style={styles.menuContainer}>
               <Pressable
-                style={styles.menuBackdrop}
-                onPress={() => setMenuOpen(false)}
-              />
-              <View style={styles.menu}>
+                style={styles.menuButton}
+                onPress={() => setMenuOpen((prev) => !prev)}
+              >
+                <Ionicons name="menu" size={24} color="#c0f000" />
+              </Pressable>
+
+              {menuOpen ? (
+                <>
+                  <Pressable
+                    style={styles.menuBackdrop}
+                    onPress={() => setMenuOpen(false)}
+                  />
+                  <View style={styles.menu}>
+                    <TouchableOpacity
+                      style={styles.menuItem}
+                      onPress={openSettings}
+                    >
+                      <Ionicons
+                        name="settings-outline"
+                        size={18}
+                        color="#f1f5f9"
+                      />
+                      <Text style={styles.menuItemText}>
+                        {t("profile.menu.settings")}
+                      </Text>
+                    </TouchableOpacity>
+
+                    {isTeacher ? (
+                      <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={handleAddOnlineClass}
+                      >
+                        <Ionicons
+                          name="videocam-outline"
+                          size={18}
+                          color="#f1f5f9"
+                        />
+                        <Text style={styles.menuItemText}>
+                          {t("profile.menu.addOnlineClass")}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
+                </>
+              ) : null}
+            </View>
+          </View>
+
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>{t("profile.account")}</Text>
+            <InfoRow label={t("profile.userId")} value={user?.id} />
+            <InfoRow
+              label={t("profile.createdAt")}
+              value={formatDateTime(user?.created_at)}
+            />
+            <InfoRow
+              label={t("profile.lastSignIn")}
+              value={formatDateTime(user?.last_sign_in_at)}
+            />
+          </View>
+
+          <View style={styles.card}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardTitle}>{t("profile.profile")}</Text>
+              <View style={styles.cardActions}>
                 <TouchableOpacity
-                  style={styles.menuItem}
-                  onPress={openSettings}
+                  onPress={() => router.push("/edit-profile")}
+                  style={styles.editCardButton}
                 >
-                  <Ionicons name="settings-outline" size={18} color="#f1f5f9" />
-                  <Text style={styles.menuItemText}>
-                    {t("profile.menu.settings")}
+                  <Ionicons name="create-outline" size={16} color="#6366f1" />
+                  <Text style={styles.editCardText}>{t("common.edit")}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={refresh}
+                  style={styles.refreshButton}
+                  disabled={isLoading}
+                >
+                  <Text style={styles.refreshText}>
+                    {isLoading ? t("common.loading") : t("profile.refresh")}
                   </Text>
                 </TouchableOpacity>
-
-                {isTeacher ? (
-                  <TouchableOpacity
-                    style={styles.menuItem}
-                    onPress={handleAddOnlineClass}
-                  >
-                    <Ionicons
-                      name="videocam-outline"
-                      size={18}
-                      color="#f1f5f9"
-                    />
-                    <Text style={styles.menuItemText}>
-                      {t("profile.menu.addOnlineClass")}
-                    </Text>
-                  </TouchableOpacity>
-                ) : null}
               </View>
-            </>
-          ) : null}
-        </View>
-      </View>
+            </View>
 
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>{t("profile.account")}</Text>
-        <InfoRow label={t("profile.userId")} value={user?.id} />
-        <InfoRow
-          label={t("profile.createdAt")}
-          value={formatDateTime(user?.created_at)}
-        />
-        <InfoRow
-          label={t("profile.lastSignIn")}
-          value={formatDateTime(user?.last_sign_in_at)}
-        />
-      </View>
-
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <Text style={styles.cardTitle}>{t("profile.profile")}</Text>
-          <View style={styles.cardActions}>
-            <TouchableOpacity
-              onPress={() => router.push("/edit-profile")}
-              style={styles.editCardButton}
-            >
-              <Ionicons name="create-outline" size={16} color="#6366f1" />
-              <Text style={styles.editCardText}>{t("common.edit")}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={refresh}
-              style={styles.refreshButton}
-              disabled={isLoading}
-            >
-              <Text style={styles.refreshText}>
-                {isLoading ? t("common.loading") : t("profile.refresh")}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {isLoading ? (
-          <ActivityIndicator color="#6366f1" style={styles.loader} />
-        ) : (
-          <>
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
-            {notFound ? (
-              <Text style={styles.mutedText}>{t("profile.noProfile")}</Text>
-            ) : null}
-            {profile ? (
+            {isLoading ? (
+              <ActivityIndicator color="#6366f1" style={styles.loader} />
+            ) : (
               <>
-                <InfoRow
-                  label={t("profile.fullName")}
-                  value={profile.full_name as string}
-                />
-                <InfoRow
-                  label={t("profile.username")}
-                  value={profile.username as string}
-                />
-                <InfoRow
-                  label={t("profile.bio")}
-                  value={profile.bio as string}
-                />
-                <InfoRow
-                  label={t("profile.website")}
-                  value={profile.website as string}
-                />
-                <InfoRow label={t("profile.profileId")} value={profile.id} />
-                <InfoRow
-                  label={t("profile.updatedAt")}
-                  value={formatDateTime(profile.updated_at as string)}
-                />
+                {error ? <Text style={styles.errorText}>{error}</Text> : null}
+                {notFound ? (
+                  <Text style={styles.mutedText}>{t("profile.noProfile")}</Text>
+                ) : null}
+                {profile ? (
+                  <>
+                    <InfoRow
+                      label={t("profile.fullName")}
+                      value={profile.full_name as string}
+                    />
+                    <InfoRow
+                      label={t("profile.username")}
+                      value={profile.username as string}
+                    />
+                    <InfoRow
+                      label={t("profile.bio")}
+                      value={profile.bio as string}
+                    />
+                    <InfoRow
+                      label={t("profile.website")}
+                      value={profile.website as string}
+                    />
+                    <InfoRow
+                      label={t("profile.profileId")}
+                      value={profile.id}
+                    />
+                    <InfoRow
+                      label={t("profile.updatedAt")}
+                      value={formatDateTime(profile.updated_at as string)}
+                    />
+                  </>
+                ) : null}
               </>
-            ) : null}
-          </>
-        )}
-      </View>
-      <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
-        <Text style={styles.signOutText}>{t("home.signOut")}</Text>
-      </TouchableOpacity>
-    </ScrollView>
-    </SafeAreaView>
+            )}
+          </View>
+          <TouchableOpacity style={styles.signOutButton} onPress={signOut}>
+            <Text style={styles.signOutText}>{t("home.signOut")}</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }
