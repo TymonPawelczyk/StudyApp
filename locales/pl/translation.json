@@ -99,6 +99,11 @@
       "english": "English",
       "polish": "Polski"
     },
+    "menu": {
+      "settings": "Ustawienia",
+      "addOnlineClass": "Dodaj zajęcia online",
+      "comingSoon": "Planowanie zajęć online będzie dostępne wkrótce."
+    },
     "edit": {
       "title": "Edytuj Profil",
       "changePhoto": "Zmień Zdjęcie",
