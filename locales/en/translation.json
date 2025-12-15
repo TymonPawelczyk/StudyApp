@@ -99,6 +99,11 @@
       "english": "English",
       "polish": "Polski"
     },
+    "menu": {
+      "settings": "Settings",
+      "addOnlineClass": "Add online class",
+      "comingSoon": "Online class scheduling is coming soon."
+    },
     "edit": {
       "title": "Edit Profile",
       "changePhoto": "Change Photo",
