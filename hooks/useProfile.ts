@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { PostgrestError } from "@supabase/supabase-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PostgrestError } from "@supabase/supabase-js";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
 
@@ -13,6 +13,10 @@ export type Profile = {
   avatar_url?: string | null;
   bio?: string | null;
   website?: string | null;
+  name?: string | null;
+  surname?: string | null;
+  role_id?: number | null;
+  status_id?: number | null;
   created_at?: string | null;
   updated_at?: string | null;
 } & Record<string, unknown>;
@@ -35,6 +39,11 @@ const isNotFoundError = (error: PostgrestError | null, status?: number) => {
     error.message.toLowerCase().includes("row not found")
   );
 };
+
+export function getUserRoleID(profile: Profile | null): number | null {
+  if (!profile) return null;
+  return profile.role_id ?? null;
+}
 
 export function useProfile(): ProfileState {
   const { user } = useAuth();

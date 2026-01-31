@@ -37,6 +37,36 @@
     }
   },
   "home": {
+    "welcome": "Welcome back,",
+    "plan": {
+      "basic": "Basic Plan",
+      "premium": "Premium Plan"
+    },
+    "progress": {
+      "badge": "NEW",
+      "title": "New lessons available!",
+      "subtitle": "Track your progress"
+    },
+    "materials": {
+      "title": "Course materials",
+      "activeUsers": "{{count}} active users",
+      "startButton": "Start now!",
+      "upgradeButton": "UPGRADE PLAN"
+    },
+    "sections": {
+      "vocabulary": {
+        "title": "Vocabulary",
+        "subtitle": "Learn new words"
+      },
+      "listening": {
+        "title": "Listening",
+        "subtitle": "Practice audio"
+      },
+      "grammar": {
+        "title": "Grammar",
+        "subtitle": "Master rules"
+      }
+    },
     "title": "Welcome to StudyApp",
     "getStarted": {
       "title": "🎯 Get Started",
@@ -69,6 +99,11 @@
       "english": "English",
       "polish": "Polski"
     },
+    "menu": {
+      "settings": "Settings",
+      "addOnlineClass": "Add online class",
+      "comingSoon": "Online class scheduling is coming soon."
+    },
     "edit": {
       "title": "Edit Profile",
       "changePhoto": "Change Photo",
@@ -100,6 +135,33 @@
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close"
+  },
+  "materialsScreen": {
+    "title": "Materials",
+    "subtitle": "All premium lessons and downloads",
+    "lockedTitle": "Upgrade required",
+    "lockedDescription": "Your plan doesn't include course materials yet. Upgrade to access downloads, videos, and exercises.",
+    "upgradeButton": "Upgrade plan",
+    "contactButton": "Contact support",
+    "available": "Available materials",
+    "new": "NEW",
+    "duration": "{{minutes}} min",
+    "level": "Level: {{level}}",
+    "format": "Format: {{format}}"
+  },
+  "calendarScreen": {
+    "title": "Calendar",
+    "subtitle": "Plan your study sessions and join upcoming live lessons.",
+    "upcoming": "Upcoming live lessons",
+    "locked": "Locked",
+    "lockedDescription": "Your plan doesn’t include live lessons yet. Upgrade to join sessions.",
+    "join": "Join",
+    "joinLocked": "Upgrade",
+    "startAt": "Starts {{date}}",
+    "duration": "{{minutes}} min",
+    "level": "Level: {{level}}",
+    "teacher": "Teacher: {{teacher}}",
+    "location": "Location: {{location}}"
   }
 }
 

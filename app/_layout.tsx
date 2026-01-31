@@ -22,7 +22,7 @@ function RootLayoutNav() {
       // User is signed in but still in auth screens, redirect to home
       router.replace("/");
     }
-  }, [session, isLoading, segments]);
+  }, [session, isLoading, segments, router]);
 
   if (isLoading) {
     return (

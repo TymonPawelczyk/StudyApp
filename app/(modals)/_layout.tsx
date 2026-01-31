@@ -1,9 +1,11 @@
 import { Stack } from "expo-router";
 
-export default function AuthLayout() {
+export default function ModalLayout() {
   return (
     <Stack
       screenOptions={{
+        presentation: "modal",
+        animation: "slide_from_bottom",
         headerShown: false,
         contentStyle: { backgroundColor: "#0f172a" },
       }}

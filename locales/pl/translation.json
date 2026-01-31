@@ -37,6 +37,36 @@
     }
   },
   "home": {
+    "welcome": "Witaj ponownie,",
+    "plan": {
+      "basic": "Plan Podstawowy",
+      "premium": "Plan Premium"
+    },
+    "progress": {
+      "badge": "NOWOŚĆ",
+      "title": "Nowe lekcje dostępne!",
+      "subtitle": "Śledź swój postęp"
+    },
+    "materials": {
+      "title": "Materiały kursowe",
+      "activeUsers": "{{count}} aktywnych użytkowników",
+      "startButton": "Zacznij teraz!",
+      "upgradeButton": "ULEPSZ PLAN"
+    },
+    "sections": {
+      "vocabulary": {
+        "title": "Słownictwo",
+        "subtitle": "Ucz się nowych słów"
+      },
+      "listening": {
+        "title": "Słuchanie",
+        "subtitle": "Ćwicz ze audio"
+      },
+      "grammar": {
+        "title": "Gramatyka",
+        "subtitle": "Opanuj zasady"
+      }
+    },
     "title": "Witaj w StudyApp",
     "getStarted": {
       "title": "🎯 Zacznij",
@@ -69,6 +99,11 @@
       "english": "English",
       "polish": "Polski"
     },
+    "menu": {
+      "settings": "Ustawienia",
+      "addOnlineClass": "Dodaj zajęcia online",
+      "comingSoon": "Planowanie zajęć online będzie dostępne wkrótce."
+    },
     "edit": {
       "title": "Edytuj Profil",
       "changePhoto": "Zmień Zdjęcie",
@@ -100,6 +135,33 @@
     "delete": "Usuń",
     "edit": "Edytuj",
     "close": "Zamknij"
+  },
+  "materialsScreen": {
+    "title": "Materiały",
+    "subtitle": "Wszystkie lekcje premium i pliki do pobrania",
+    "lockedTitle": "Wymagana aktualizacja",
+    "lockedDescription": "Twój plan nie obejmuje materiałów kursowych. Ulepsz plan, aby uzyskać dostęp do plików, wideo i ćwiczeń.",
+    "upgradeButton": "Ulepsz plan",
+    "contactButton": "Kontakt ze wsparciem",
+    "available": "Dostępne materiały",
+    "new": "NOWOŚĆ",
+    "duration": "{{minutes}} min",
+    "level": "Poziom: {{level}}",
+    "format": "Format: {{format}}"
+  },
+  "calendarScreen": {
+    "title": "Kalendarz",
+    "subtitle": "Planuj sesje i dołączaj do nadchodzących lekcji online.",
+    "upcoming": "Nadchodzące lekcje na żywo",
+    "locked": "Zablokowane",
+    "lockedDescription": "Twój plan nie obejmuje lekcji na żywo. Ulepsz plan, aby dołączać do zajęć.",
+    "join": "Dołącz",
+    "joinLocked": "Ulepsz",
+    "startAt": "Start {{date}}",
+    "duration": "{{minutes}} min",
+    "level": "Poziom: {{level}}",
+    "teacher": "Prowadzący: {{teacher}}",
+    "location": "Miejsce: {{location}}"
   }
 }
 
