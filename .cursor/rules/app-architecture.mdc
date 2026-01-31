@@ -1,0 +1,85 @@
+---
+alwaysApply: true
+---
+
+# StudyApp Architecture Rules
+
+## Routing & Navigation
+
+You MUST use Expo Router with file-based routing for all navigation.
+You MUST place all route files in the `app/` directory following Expo Router conventions.
+You MUST use route groups (folders with parentheses like `(auth)`) to organize related routes without affecting the URL structure.
+You MUST use `expo-router`'s `router`, `Link`, and `useRouter` hooks for navigation instead of React Navigation directly.
+You MUST implement protected routes by checking authentication state in `_layout.tsx` files and redirecting unauthenticated users to login.
+
+## File Structure
+
+You MUST organize components, screens, and utilities in the following structure:
+- `app/` - All route files and layouts
+- `context/` - React Context providers (e.g., AuthContext)
+- `lib/` - Utility functions and third-party client configurations (e.g., Supabase)
+- `components/` - Reusable UI components (create if needed)
+- `hooks/` - Custom React hooks (create if needed)
+- `types/` - TypeScript type definitions (create if needed)
+
+You MUST use TypeScript for all new files and maintain type safety throughout the codebase.
+
+## State Management
+
+You MUST use React Context for global application state (like authentication).
+You MUST use local component state (useState) for component-specific UI state.
+You MUST create custom hooks (e.g., `useAuth`) to access context values instead of using `useContext` directly in components.
+
+## Authentication
+
+You MUST use Supabase for all authentication operations (sign up, sign in, sign out).
+You MUST manage authentication state through the AuthContext provider.
+You MUST check session state before rendering protected routes.
+You MUST handle loading states during authentication checks to prevent flash of incorrect content.
+
+## Styling
+
+You MUST use React Native StyleSheet API for all component styles.
+You MUST maintain consistent dark theme colors throughout the app:
+  - Background: `#0f172a`
+  - Card/Container: `#1e293b`
+  - Border: `#334155`
+  - Text Primary: `#f1f5f9`
+  - Text Secondary: `#64748b` or `#94a3b8`
+  - Accent: `#6366f1`
+  - Error: `#f87171`
+You MUST use consistent border radius values (12px for buttons/inputs, 16px for cards).
+You MUST use consistent spacing (multiples of 4px or 8px).
+
+## Data Fetching
+
+You MUST use Supabase client from `lib/supabase.ts` for all database operations.
+You MUST handle loading and error states for all async operations.
+You MUST use proper TypeScript types for all Supabase queries and responses.
+
+## Error Handling
+
+You MUST display user-friendly error messages for all user-facing operations.
+You MUST handle network errors gracefully with appropriate fallback UI.
+You MUST log errors to console for debugging purposes in development.
+
+## Code Quality
+
+You MUST follow React Native and Expo best practices.
+You MUST use functional components with hooks (no class components).
+You MUST use proper TypeScript types and avoid `any` type.
+You MUST keep components small and focused on a single responsibility.
+You MUST extract reusable logic into custom hooks or utility functions.
+
+## Platform Compatibility
+
+You MUST ensure all code works on both iOS and Android platforms.
+You MUST use Platform-specific code when necessary (e.g., KeyboardAvoidingView behavior).
+You MUST test on both platforms before considering a feature complete.
+
+## Dependencies
+
+You MUST use Expo-compatible packages and avoid packages that require native code unless absolutely necessary.
+You MUST check package compatibility with Expo SDK version before adding new dependencies.
+You MUST use AsyncStorage from `@react-native-async-storage/async-storage` for local storage needs.
+
